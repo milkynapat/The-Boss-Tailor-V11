@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f3f0ea" />
+  <title>The Boss Tailor — Bespoke Tailoring in Bangkok</title>
+  <meta name="description" content="Bespoke suits, shirts and separates cut to your measurements. The Boss Tailor comes to your hotel, office or home anywhere in Bangkok." />
+  <style>
+    :root{
+      --paper:#f3f0ea;
+      --paper-2:#e9e4db;
+      --ink:#181817;
+      --muted:#6f6a62;
+      --line:#cfc8bd;
+      --accent:#6f3f31;
+      --dark:#222321;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Arial, Helvetica, sans-serif;
+      --max: 1440px;
+      --pad: clamp(20px, 4vw, 64px);
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+    a{color:inherit;text-decoration:none} button,input,select,textarea{font:inherit} img{display:block;max-width:100%}
+    .shell{width:min(100%,var(--max));margin-inline:auto;padding-inline:var(--pad)}
+    .eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700}
+    .muted{color:var(--muted)}
+
+    .announcement{background:var(--dark);color:#f5f2ec;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+    .announcement .shell{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:34px}
+    .announcement a{text-decoration:underline;text-underline-offset:3px}
+    header{position:sticky;top:0;z-index:50;background:rgba(243,240,234,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(207,200,189,.75)}
+    nav.shell{height:76px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:38px}
+    .brand{font-family:var(--serif);font-size:25px;letter-spacing:-.04em;font-weight:700;white-space:nowrap}
+    .brand span{font-family:var(--sans);font-size:9px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;display:block;margin-top:-2px}
+    .navlinks{display:flex;justify-content:center;gap:28px;font-size:12px;text-transform:uppercase;letter-spacing:.1em}
+    .navlinks a{position:relative;padding:8px 0}
+    .navlinks a:after{content:"";position:absolute;left:0;right:100%;bottom:3px;height:1px;background:var(--ink);transition:.25s}
+    .navlinks a:hover:after{right:0}
+    .nav-actions{display:flex;gap:10px;align-items:center}
+    .btn{border:1px solid var(--ink);padding:11px 17px;background:transparent;display:inline-flex;align-items:center;justify-content:center;gap:9px;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;cursor:pointer;transition:.2s}
+    .btn:hover{background:var(--ink);color:var(--paper)} .btn.dark{background:var(--ink);color:var(--paper)} .btn.dark:hover{background:var(--accent);border-color:var(--accent)}
+    .menu-btn{display:none;border:0;background:none;font-size:24px;cursor:pointer}
+
+    .hero{min-height:calc(100vh - 110px);display:grid;grid-template-columns:minmax(0,1.05fr) minmax(420px,.95fr);gap:clamp(30px,5vw,80px);align-items:center;padding-block:clamp(56px,8vw,112px)}
+    .hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(58px,7.2vw,112px);letter-spacing:-.055em;line-height:.88;margin:18px 0 28px;max-width:900px}
+    .hero h1 em{font-weight:400;color:var(--accent)}
+    .hero-copy{font-size:clamp(16px,1.5vw,21px);max-width:650px;color:#46433f}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
+    .hero-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:54px;padding-top:20px;border-top:1px solid var(--line);max-width:700px}
+    .hero-meta strong{font-family:var(--serif);font-size:31px;font-weight:400;display:block;line-height:1}
+    .hero-meta span{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+    .hero-art{position:relative;min-height:650px}
+    .hero-card{position:absolute;background:linear-gradient(180deg, rgba(255,255,255,.88), rgba(245,239,231,.88));border:1px solid #ddd7cd;overflow:hidden}
+    .hero-card img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+    .hero-card.one{right:0;top:0;width:73%;height:78%}
+    .hero-card.two{left:0;bottom:0;width:54%;height:51%;box-shadow:0 20px 60px rgba(35,28,20,.1)}
+    .hero-note{position:absolute;right:4%;bottom:3%;background:var(--accent);color:white;width:150px;height:150px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;padding:18px;font-family:var(--serif);font-style:italic;font-size:18px;transform:rotate(-6deg)}
+
+    .numbers{background:var(--dark);color:#eeeae2} .numbers .shell{display:grid;grid-template-columns:repeat(4,1fr)} .stat{padding:38px 28px;border-right:1px solid #454541} .stat:first-child{border-left:1px solid #454541} .stat strong{font-family:var(--serif);font-size:45px;font-weight:400;line-height:1;display:block;margin-bottom:8px} .stat span{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#bdbab4}
+
+    section{padding-block:clamp(78px,9vw,130px)}
+    .section-head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:52px}
+    .section-head h2{font-family:var(--serif);font-size:clamp(44px,5vw,78px);line-height:.95;letter-spacing:-.04em;font-weight:400;margin:12px 0 0}
+    .section-head p{max-width:610px;margin:0;color:var(--muted);font-size:17px}
+
+    .families{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+    .family{padding:28px 28px 36px 0;border-bottom:1px solid var(--line);position:relative}
+    .family:nth-child(3n+2){padding-left:28px;border-left:1px solid var(--line)} .family:nth-child(3n+3){padding-left:28px;border-left:1px solid var(--line)}
+    .family .num{font-family:var(--serif);font-size:20px;color:var(--accent);margin-bottom:52px} .family h3{font-family:var(--serif);font-size:30px;font-weight:400;margin:0 0 14px} .family p{color:var(--muted);margin:0 0 24px;max-width:360px}
+    .text-link{font-size:11px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid var(--ink);padding-bottom:4px}
+
+    .collection{background:#ebe7df}
+    .collection-switch{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 22px}
+    .switch-btn{appearance:none;border:1px solid #d7d0c5;background:rgba(255,255,255,.68);padding:20px 22px;text-align:left;cursor:pointer;transition:.2s}
+    .switch-btn small{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+    .switch-btn strong{display:block;font-family:var(--serif);font-size:32px;font-weight:400;letter-spacing:-.03em}
+    .switch-btn span{display:block;font-size:13px;color:var(--muted);margin-top:8px}
+    .switch-btn.active{background:var(--ink);border-color:var(--ink);color:#fff}
+    .switch-btn.active small,.switch-btn.active span{color:#d4cec4}
+    .collection-toolbar{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:22px;padding-bottom:10px;border-bottom:1px solid #d5cec2}
+    .current-filter{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)} .current-filter b{color:var(--ink)}
+    .count{font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+    .product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+    .product{position:relative;background:transparent;cursor:pointer;border:1px solid rgba(207,200,189,.9);min-width:0;transition:transform .25s,box-shadow .25s;overflow:hidden}
+    .product:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(37,31,24,.08)}
+    .product-image{aspect-ratio:1/1;background:transparent;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:14px 14px 6px}
+    .product-image img{width:100%;height:100%;object-fit:contain;transition:transform .4s}
+    .product:hover img{transform:scale(1.025)}
+    .product:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+    .view-look{position:absolute;left:14px;right:14px;bottom:72px;background:rgba(24,24,23,.88);color:#fff;padding:10px 12px;text-align:center;font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:0;transform:translateY(6px);transition:.2s;pointer-events:none}
+    .product:hover .view-look,.product:focus .view-look{opacity:1;transform:none}
+    .product-info{padding:16px 16px 19px;border-top:1px solid #e4dfd7;background:rgba(248,247,244,.45)}
+    .product-info small{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-bottom:6px} .product-info h3{font-family:var(--serif);font-size:19px;font-weight:400;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+    .craft{display:grid;grid-template-columns:.8fr 1.2fr;gap:7vw;align-items:start} .craft-sticky{position:sticky;top:115px} .craft h2{font-family:var(--serif);font-weight:400;font-size:clamp(46px,5vw,74px);line-height:.98;letter-spacing:-.04em;margin:14px 0 26px} .craft-list{border-top:1px solid var(--line)} .craft-step{display:grid;grid-template-columns:70px 1fr;gap:24px;padding:30px 0;border-bottom:1px solid var(--line)} .craft-step .roman{font-family:var(--serif);font-size:22px;color:var(--accent)} .craft-step h3{font-family:var(--serif);font-size:30px;font-weight:400;margin:0 0 8px} .craft-step p{margin:0;color:var(--muted)}
+    .process{background:var(--dark);color:#f1ede5} .process .section-head p{color:#b8b5ae} .process-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #4a4a46} .process-card{padding:32px 28px 44px 0;border-bottom:1px solid #4a4a46} .process-card:not(:nth-child(4n+1)){padding-left:28px;border-left:1px solid #4a4a46} .process-card b{font-family:var(--serif);font-weight:400;font-size:38px;color:#b98973} .process-card h3{font-family:var(--serif);font-size:25px;font-weight:400;margin:30px 0 12px} .process-card p{color:#b8b5ae;margin:0;font-size:14px}
+    .reviews-wrap{display:grid;grid-template-columns:.7fr 1.3fr;gap:6vw} .rating{font-family:var(--serif);font-size:90px;line-height:.9;letter-spacing:-.06em;margin:20px 0 10px} .stars{letter-spacing:.12em;color:var(--accent)} .review-list{border-top:1px solid var(--line)} .review{padding:28px 0;border-bottom:1px solid var(--line)} .review blockquote{font-family:var(--serif);font-size:clamp(22px,2.5vw,36px);line-height:1.22;margin:0 0 20px;letter-spacing:-.015em} .review cite{font-style:normal;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+    .booking{background:#d7cabb} .booking-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:7vw;align-items:start} .booking h2{font-family:var(--serif);font-size:clamp(52px,6vw,90px);font-weight:400;line-height:.9;letter-spacing:-.045em;margin:14px 0 24px} .booking p{max-width:530px;color:#534b43} .booking-contact{margin-top:36px;border-top:1px solid #a99c8e;padding-top:22px;display:grid;gap:8px;font-size:13px} form{background:rgba(255,255,255,.55);border:1px solid rgba(97,81,67,.25);padding:clamp(24px,4vw,44px)} .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px} label{display:block;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:0 0 7px} .field{margin-bottom:18px} input,select,textarea{width:100%;background:transparent;border:0;border-bottom:1px solid #8d8174;padding:11px 0;border-radius:0;outline:0;color:var(--ink)} input:focus,select:focus,textarea:focus{border-color:var(--accent)} textarea{min-height:90px;resize:vertical} form .btn{width:100%;margin-top:8px} .form-note{font-size:11px;color:#62594f;margin-top:12px}
+    footer{background:#171817;color:#f1ede5;padding:70px 0 30px} .footer-grid{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:40px;padding-bottom:60px} .footer-brand{font-family:var(--serif);font-size:36px;line-height:1;margin-bottom:18px} footer p{color:#aaa8a3;max-width:420px;font-size:13px} footer h4{font-size:10px;text-transform:uppercase;letter-spacing:.14em;margin:0 0 18px;color:#c9c6c0} footer ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;font-size:13px;color:#aaa8a3} .footer-bottom{border-top:1px solid #343532;padding-top:26px;display:flex;justify-content:space-between;gap:20px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#777874} .wa-float{position:fixed;right:20px;bottom:20px;z-index:80;background:#20211f;color:white;border:1px solid rgba(255,255,255,.2);width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease} .reveal.visible{opacity:1;transform:none}
+
+
+    .look-modal{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(18,18,17,.72);backdrop-filter:blur(8px)}
+    .look-modal.open{display:flex}
+    .look-dialog{width:min(1120px,96vw);max-height:92vh;background:#f3f0ea;border:1px solid rgba(255,255,255,.2);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.55fr);overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.25)}
+    .look-stage{position:relative;min-height:620px;background:#e8e1d7;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .look-stage img{width:100%;height:100%;max-height:78vh;object-fit:contain;padding:28px;user-select:none}
+    .look-arrow{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border:1px solid rgba(24,24,23,.25);background:rgba(243,240,234,.88);color:var(--ink);display:grid;place-items:center;font-size:24px;cursor:pointer;z-index:2}
+    .look-arrow:hover{background:var(--ink);color:#fff}.look-arrow.prev{left:18px}.look-arrow.next{right:18px}
+    .look-close{position:absolute;top:16px;right:16px;width:42px;height:42px;border:1px solid rgba(24,24,23,.24);background:rgba(243,240,234,.92);font-size:23px;cursor:pointer;z-index:3}
+    .look-panel{padding:38px 34px;display:flex;flex-direction:column;min-width:0}
+    .look-panel .eyebrow{color:var(--muted)}
+    .look-panel h3{font-family:var(--serif);font-weight:400;font-size:42px;line-height:1;margin:12px 0 10px;letter-spacing:-.035em}
+    .look-panel p{color:var(--muted);margin:0 0 28px}
+    .look-thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:auto}
+    .look-thumb{border:1px solid var(--line);background:#ebe6de;aspect-ratio:4/5;padding:5px;cursor:pointer}
+    .look-thumb.active{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+    .look-thumb img{width:100%;height:100%;object-fit:contain}
+    .look-caption{font-size:10px;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);margin-top:10px;min-height:16px}
+    body.modal-open{overflow:hidden}
+
+    @media (max-width:1050px){
+      .navlinks{display:none}.menu-btn{display:block}.nav-actions .btn{display:none} nav.shell{grid-template-columns:auto 1fr auto}.brand{justify-self:start}.menu-btn{justify-self:end}
+      .hero{grid-template-columns:1fr;min-height:auto}.hero-art{min-height:580px;max-width:720px;width:100%;margin-inline:auto}
+      .numbers .shell{grid-template-columns:repeat(2,1fr)} .stat:nth-child(3){border-left:1px solid #454541}
+      .product-grid{grid-template-columns:repeat(3,1fr)}
+      .look-dialog{grid-template-columns:1fr}.look-stage{min-height:520px}.look-panel{padding:26px 28px}.look-thumbs{margin-top:20px} .process-grid{grid-template-columns:repeat(2,1fr)} .process-card:nth-child(odd){border-left:0;padding-left:0}.process-card:nth-child(even){border-left:1px solid #4a4a46;padding-left:28px}
+      .booking-grid,.reviews-wrap,.craft{grid-template-columns:1fr}.craft-sticky{position:static}
+      .footer-grid{grid-template-columns:1.5fr 1fr 1fr}.footer-grid>div:last-child{grid-column:2 / 4}
+    }
+    @media (max-width:720px){
+      :root{--pad:18px}
+      .announcement .shell{justify-content:center;text-align:center}.announcement span:last-child{display:none} nav.shell{height:66px}.brand{font-size:21px}
+      .hero{padding-block:46px}.hero h1{font-size:54px}.hero-meta{grid-template-columns:1fr 1fr}.hero-meta>div:last-child{grid-column:1 / -1}
+      .hero-art{min-height:420px}.hero-card.one{width:76%;height:74%}.hero-card.two{width:60%;height:48%}.hero-note{width:110px;height:110px;font-size:14px}
+      .numbers .shell{grid-template-columns:1fr 1fr}.stat{padding:26px 15px}.stat strong{font-size:34px}
+      .section-head{grid-template-columns:1fr;gap:18px}.section-head h2{font-size:48px}
+      .families{grid-template-columns:1fr}.family,.family:nth-child(3n+2),.family:nth-child(3n+3){padding:25px 0;border-left:0}.family .num{margin-bottom:28px}
+      .collection-switch{grid-template-columns:1fr}.switch-btn strong{font-size:26px}.collection-toolbar{align-items:flex-start;flex-direction:column}
+      .product-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+      .look-modal{padding:10px}.look-dialog{max-height:95vh;overflow:auto}.look-stage{min-height:420px}.look-stage img{max-height:58vh;padding:18px}.look-panel h3{font-size:34px}.look-arrow{width:42px;height:42px}.look-arrow.prev{left:8px}.look-arrow.next{right:8px}.look-close{top:8px;right:8px}.product-info{padding:12px}.product-info h3{font-size:16px}
+      .craft-step{grid-template-columns:42px 1fr;gap:12px}.craft-step h3{font-size:24px}
+      .process-grid{grid-template-columns:1fr}.process-card,.process-card:nth-child(even),.process-card:nth-child(odd){border-left:0;padding:26px 0}
+      .rating{font-size:72px}.review blockquote{font-size:24px}.field-row{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr}.footer-grid>div:last-child{grid-column:auto}.footer-bottom{flex-direction:column}
+    }
+    .mobile-menu{display:none;position:fixed;inset:100px 0 auto;background:var(--paper);z-index:45;border-bottom:1px solid var(--line);padding:20px var(--pad) 30px} .mobile-menu.open{display:grid;gap:6px} .mobile-menu a{padding:12px 0;border-bottom:1px solid var(--line);font-family:var(--serif);font-size:28px}
+
+
+    /* v7 — final hero + real contact/location */
+    .hero-cover{
+      position:relative;
+      padding-block:0;
+      min-height:clamp(620px,78vw,940px);
+      display:flex;
+      align-items:flex-end;
+      background-image:url('assets/hero/the-boss-international.png');
+      background-size:cover;
+      background-position:center;
+      color:#fff;
+      overflow:hidden;
+      isolation:isolate;
+    }
+    .hero-cover::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:
+        linear-gradient(90deg,rgba(0,0,0,.86) 0%,rgba(0,0,0,.68) 31%,rgba(0,0,0,.26) 55%,rgba(0,0,0,.05) 76%),
+        linear-gradient(180deg,rgba(0,0,0,.02) 35%,rgba(0,0,0,.52) 100%);
+      pointer-events:none;
+    }
+    .hero-cover-inner{width:100%;padding-block:clamp(52px,7vw,92px)}
+    .hero-cover-copy{max-width:min(760px,56vw);position:relative}
+    .hero-cover .eyebrow{color:rgba(255,255,255,.82);text-shadow:0 2px 14px rgba(0,0,0,.5)}
+    .hero-cover h1{font-family:var(--serif);font-size:clamp(54px,6.5vw,98px);font-weight:400;letter-spacing:-.05em;line-height:.92;margin:14px 0 24px;text-shadow:0 4px 28px rgba(0,0,0,.65)}
+    .hero-cover h1 span{display:inline;color:#fff}
+    .hero-cover h1 em{display:inline;font-weight:400;font-style:italic;color:#d6a08d}
+    .hero-cover p{font-size:clamp(16px,1.45vw,20px);max-width:650px;margin:0;color:rgba(255,255,255,.92);text-shadow:0 2px 16px rgba(0,0,0,.62)}
+    .hero-cover-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+    .hero-cover .btn.light{background:#f4f0e9;color:#171817;border-color:#f4f0e9}
+    .hero-cover .btn.light:hover{background:#fff;color:#171817;border-color:#fff}
+    .hero-cover .btn.ghost-light{border-color:rgba(255,255,255,.72);color:#fff;background:rgba(0,0,0,.08)}
+    .hero-cover .btn.ghost-light:hover{background:#fff;color:#171817;border-color:#fff}
+    .hero-trust{display:flex;flex-wrap:wrap;gap:22px 34px;margin-top:32px;padding-top:22px;border-top:1px solid rgba(255,255,255,.28);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.78)}
+    .hero-trust strong{font-family:var(--serif);font-size:27px;letter-spacing:0;text-transform:none;color:#fff;font-weight:400;margin-right:6px}
+
+    .real-book-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+    .real-book-actions .btn{min-width:150px}
+    .official-note{font-size:11px;color:#62594f;margin-top:15px;max-width:560px}
+
+    .location{background:#f3f0ea;padding-block:clamp(72px,8vw,118px)}
+    .location-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(30px,5vw,72px);align-items:stretch}
+    .location-copy{display:flex;flex-direction:column;justify-content:center}
+    .location-copy h2{font-family:var(--serif);font-size:clamp(48px,5vw,76px);font-weight:400;line-height:.95;letter-spacing:-.04em;margin:13px 0 24px}
+    .location-copy p{color:var(--muted);font-size:16px;max-width:570px}
+    .location-details{margin-top:30px;border-top:1px solid var(--line)}
+    .location-row{display:grid;grid-template-columns:120px 1fr;gap:18px;padding:17px 0;border-bottom:1px solid var(--line);font-size:13px}
+    .location-row b{font-size:10px;text-transform:uppercase;letter-spacing:.13em}
+    .location-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+    .map-frame{min-height:520px;border:1px solid var(--line);background:#e7e1d7;overflow:hidden}
+    .map-frame iframe{display:block;width:100%;height:100%;min-height:520px;border:0}
+    .source-note{font-size:10px;line-height:1.5;color:var(--muted);margin-top:15px}
+
+    @media (max-width:900px){
+      .hero-cover{min-height:720px;background-position:58% center}
+      .hero-cover-copy{max-width:720px}
+      .location-grid{grid-template-columns:1fr}
+      .map-frame,.map-frame iframe{min-height:420px}
+    }
+    @media (max-width:620px){
+      .hero-cover{min-height:690px;background-position:58% center}
+      .hero-cover::before{background:linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.48)),linear-gradient(180deg,rgba(0,0,0,.08) 20%,rgba(0,0,0,.60) 100%)}
+      .hero-cover-copy{max-width:100%}
+      .hero-cover h1{font-size:52px}
+      .hero-cover-actions .btn{width:100%}
+      .hero-trust{gap:16px 22px}
+      .location-row{grid-template-columns:1fr;gap:5px}
+      .location-links .btn{width:100%}
+      .map-frame,.map-frame iframe{min-height:350px}
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement"><div class="shell"><span>Bangkok bespoke · Fittings at your hotel, office or home</span><span>Open daily 9:00 - 21:00 · <a href="tel:+66911051152">+66 911 051 152</a></span></div></div>
+  <header>
+    <nav class="shell">
+      <a class="brand" href="#top">The Boss Tailor<span>Bangkok Bespoke</span></a>
+      <div class="navlinks"><a href="#collection">Collection</a><a href="#craft">Craft</a><a href="#process">How it works</a><a href="#reviews">Reviews</a><a href="#location">Location</a><a href="#book">Book</a></div>
+      <div class="nav-actions"><a class="btn dark" href="#book">Book a fitting</a><button class="menu-btn" aria-label="Open menu" onclick="document.querySelector('.mobile-menu').classList.toggle('open')">☰</button></div>
+    </nav>
+  </header>
+  <div class="mobile-menu"><a href="#collection">Collection</a><a href="#craft">Craft</a><a href="#process">How it works</a><a href="#reviews">Reviews</a><a href="#location">Location</a><a href="#book">Book a fitting</a></div>
+
+  <main id="top">
+    <section class="hero-cover" aria-label="The Boss Tailor Bangkok">
+      <div class="shell hero-cover-inner">
+        <div class="hero-cover-copy reveal">
+          <div class="eyebrow">The Boss Tailor · Bangkok · Since 2016</div>
+          <h1><span>Made for You.</span><br><em>Tailored in Bangkok.</em></h1>
+          <p>Bespoke suits, shirts and separates made to your measurements, with fittings wherever you are in Bangkok.</p>
+          <div class="hero-cover-actions">
+            <a class="btn light" href="#book">Book a fitting</a>
+            <a class="btn ghost-light" href="#collection">View collection</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="numbers"><div class="shell"><div class="stat"><strong>2016</strong><span>Cutting in Bangkok since</span></div><div class="stat"><strong>4.9★</strong><span>From 146 Google reviews</span></div><div class="stat"><strong>All Bangkok</strong><span>Hotel · office · home</span></div><div class="stat"><strong>9:00 - 21:00</strong><span>Open daily</span></div></div></div>
+
+    <section id="what"><div class="shell">
+      <div class="section-head reveal"><div><div class="eyebrow">What we make</div><h2>One pattern.<br>Made for you.</h2></div><p>Every garment begins with your measurements and the purpose you need it for — business, a wedding, black tie, warm weather or everyday wear.</p></div>
+      <div class="families reveal">
+        <article class="family"><div class="num">01</div><h3>Bespoke suits</h3><p>Tuxedos and black tie, wedding suits and business suits cut from your own pattern.</p><a class="text-link" href="#collection" data-jump="men">See men's tailoring →</a></article>
+        <article class="family"><div class="num">02</div><h3>Tailored shirts</h3><p>Business, formal and warm-weather shirts, with collar, cuff and construction choices recorded for you.</p><a class="text-link" href="#book">Ask about shirts →</a></article>
+        <article class="family"><div class="num">03</div><h3>Tailoring for women</h3><p>Women's shirts, suits, trousers, blazers and coats — measured and fitted to the wearer.</p><a class="text-link" href="#collection" data-jump="women">See women's tailoring →</a></article>
+        <article class="family"><div class="num">04</div><h3>Separates</h3><p>Tailored trousers, blazers, overcoats and waistcoats to work with the rest of your wardrobe.</p><a class="text-link" href="#collection" data-jump="all">Browse looks →</a></article>
+        <article class="family"><div class="num">05</div><h3>Fittings where you are</h3><p>We come to your hotel, office or home for measurement, basted fitting, refinements and delivery.</p><a class="text-link" href="#process">How it works →</a></article>
+        <article class="family"><div class="num">06</div><h3>Cloth & construction</h3><p>Wool, worsted and warm-weather cloth selected for how and where the garment will actually be worn.</p><a class="text-link" href="#craft">See the craft →</a></article>
+      </div>
+    </div></section>
+
+    <section class="collection" id="collection"><div class="shell">
+      <div class="section-head reveal"><div><div class="eyebrow">The collection</div><h2>Choose the line.<br>Men or women.</h2></div><p>The clothing section is split clearly now. Click a tab to browse only men's tailoring, only women's tailoring, or the full edit.</p></div>
+      <div class="collection-switch reveal">
+        <button class="switch-btn active" data-filter="men" type="button"><small>Collection</small><strong>Men</strong><span>Suits, double-breasted looks and three-piece tailoring.</span></button>
+        <button class="switch-btn" data-filter="women" type="button"><small>Collection</small><strong>Women</strong><span>Blazers, suiting and tailored separates for women.</span></button>
+        <button class="switch-btn" data-filter="all" type="button"><small>Collection</small><strong>All looks</strong><span>See both collections together in one grid.</span></button>
+      </div>
+      <div class="collection-toolbar reveal"><div class="current-filter">Now viewing: <b id="currentFilterLabel">Men's tailoring</b></div><div class="count" id="count">11 looks</div></div>
+      <div class="product-grid" id="productGrid"></div>
+    </div></section>
+
+    <section id="craft"><div class="shell craft"><div class="craft-sticky reveal"><div class="eyebrow">What you are paying for</div><h2>The parts you never see.</h2><p class="muted">A bespoke jacket is shaped long before the finished cloth is visible. The important work happens while the garment can still be changed.</p></div><div class="craft-list reveal"><div class="craft-step"><div class="roman">I</div><div><h3>Cut and basted</h3><p>The garment begins as a shell held together in white thread. It is tried on before the seams are finished, so what does not fit can still be unpicked and corrected.</p></div></div><div class="craft-step"><div class="roman">II</div><div><h3>The basted fitting</h3><p>This is the fitting that changes the pattern. Posture, shoulder balance, length and proportion can be corrected while the jacket is still half-made.</p></div></div><div class="craft-step"><div class="roman">III</div><div><h3>Canvas and construction</h3><p>The chest is shaped by what sits under the cloth. Construction choices affect how the jacket moves, holds shape and behaves in Bangkok's heat and humidity.</p></div></div><div class="craft-step"><div class="roman">IV</div><div><h3>Finished and kept on file</h3><p>The garment is refined on the corrected pattern, delivered to you, and your pattern stays on file for future orders and later alterations.</p></div></div></div></div></section>
+    <section class="process" id="process"><div class="shell"><div class="section-head reveal"><div><div class="eyebrow">How it works</div><h2>We come to you.</h2></div><p>The current service is built around fittings where you already are in Bangkok — no shop journey required.</p></div><div class="process-grid reveal"><article class="process-card"><b>01</b><h3>Tell us where & when</h3><p>Share your hotel, office or home, what you want made, and your departure date if you are visiting Bangkok.</p></article><article class="process-card"><b>02</b><h3>We bring the cloth</h3><p>Cloth, bunch books and the tape come to you. Nothing is cut until you have seen the cloth in your own light.</p></article><article class="process-card"><b>03</b><h3>Fit while half-made</h3><p>The basted garment is tried on, the pattern is corrected on your body, and later fittings refine the cloth against that pattern.</p></article><article class="process-card"><b>04</b><h3>Delivered to you</h3><p>The finished garment comes back to you, and your pattern is kept on file so later orders can begin from the original draft.</p></article></div></div></section>
+    <section id="reviews"><div class="shell reviews-wrap"><div class="reveal"><div class="eyebrow">Customer reviews</div><div class="rating">4.9</div><div class="stars">★★★★★</div><p class="muted">From 146 reviews on Google.</p><a class="btn" href="https://www.google.com/maps?cid=4585984125390690618" target="_blank" rel="noopener">Read reviews</a></div><div class="review-list reveal"><div class="review"><blockquote>“Best tailor in Bangkok! Raj and Alex were extremely kind and helpful... beautiful linen clothes to take back home.”</blockquote><cite>Agustín Davies · Google review</cite></div><div class="review"><blockquote>“Amazing service, very quick turnaround and quality. I highly recommend when you're visiting Bangkok.”</blockquote><cite>Weslley Mota · Google review</cite></div><div class="review"><blockquote>“Very professional and talented... fitting and adjustments times were organised regularly, and the finished suits were sent to my hotel.”</blockquote><cite>Heather Heartless · Google review</cite></div></div></div></section>
+    <section class="booking" id="book"><div class="shell booking-grid"><div class="reveal"><div class="eyebrow">Book a fitting</div><h2>Tell us where you are.</h2><p>We bring the cloth, measurements and bunch books to your hotel, office or home anywhere in Bangkok. If you're visiting, include the day you fly so the team can tell you what is possible before anything is cut.</p><div class="booking-contact"><a href="tel:+66911051152">Call · +66 911 051 152</a><a href="https://wa.me/66911051152" target="_blank" rel="noopener">WhatsApp · Same number</a><span>Open daily · 9:00 - 21:00</span></div><div class="real-book-actions"><a class="btn dark" href="#bookingForm">Fill booking form ↓</a><a class="btn" href="tel:+66911051152">Call now</a></div><div class="official-note">Book directly from this website. Submitting the form opens WhatsApp to The Boss Tailor with your booking details already filled in.</div></div><form id="bookingForm" class="reveal"><div class="field-row"><div class="field"><label for="name">Name</label><input id="name" required placeholder="Your name" /></div><div class="field"><label for="phone">Phone / WhatsApp</label><input id="phone" required placeholder="+66 ..." /></div></div><div class="field-row"><div class="field"><label for="where">Where are you in Bangkok?</label><input id="where" required placeholder="Hotel, office or area" /></div><div class="field"><label for="date">Preferred date</label><input id="date" type="date" /></div></div><div class="field-row"><div class="field"><label for="garment">What would you like made?</label><select id="garment"><option>Bespoke suit</option><option>Tailored shirts</option><option>Women's tailoring</option><option>Trousers / blazer / separates</option><option>Wedding / black tie</option><option>Other</option></select></div><div class="field"><label for="departure">Departure date (if visiting)</label><input id="departure" type="date" /></div></div><div class="field"><label for="message">Anything else?</label><textarea id="message" placeholder="Occasion, preferred style, number of garments, timing..."></textarea></div><button class="btn dark" type="submit">Continue on WhatsApp →</button><div class="form-note">Submitting opens a pre-filled WhatsApp message to The Boss Tailor at the number published on the official website. No form data is stored by this page.</div></form></div></section>
+
+    <section class="location" id="location">
+      <div class="shell location-grid">
+        <div class="location-copy reveal">
+          <div class="eyebrow">Bangkok · Khaosan Road</div>
+          <h2>Find The Boss.<br>Or have us come to you.</h2>
+          <p>The Google Business location is at Center Point Plaza Hotel on Khaosan Road. The current fitting service also comes to customers at hotels, offices and residences anywhere in Bangkok.</p>
+          <div class="location-details">
+            <div class="location-row"><b>Google location</b><span>Center Point Plaza Hotel, Khaosan Rd, Talat Yot, Phra Nakhon, Bangkok 10200, Thailand</span></div>
+            <div class="location-row"><b>Phone</b><span><a href="tel:+66911051152">+66 911 051 152</a></span></div>
+            <div class="location-row"><b>Hours</b><span>9:00 - 21:00 daily</span></div>
+            <div class="location-row"><b>Fittings</b><span>Hotel · office · home · anywhere in Bangkok</span></div>
+          </div>
+          <div class="location-links">
+            <a class="btn dark" href="https://www.google.com/maps?cid=4585984125390690618" target="_blank" rel="noopener">Open Google Maps</a>
+            <a class="btn" href="https://wa.me/66911051152" target="_blank" rel="noopener">WhatsApp</a>
+            <a class="btn" href="#book">Book a fitting</a>
+          </div>
+          <div class="source-note">For appointments, the official site currently describes The Boss Tailor as a service-area business: measurements, fittings and delivery can take place at your hotel, office or residence across Bangkok.</div>
+        </div>
+        <div class="map-frame reveal">
+          <iframe
+            title="The Boss Tailor — Khaosan Road, Bangkok"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=The+Boss+Tailor,+Center+Point+Plaza+Hotel,+Khaosan+Road,+Bangkok+10200&output=embed">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <div class="look-modal" id="lookModal" aria-hidden="true">
+    <div class="look-dialog" role="dialog" aria-modal="true" aria-labelledby="lookTitle">
+      <div class="look-stage" id="lookStage">
+        <button class="look-close" type="button" id="lookClose" aria-label="Close">×</button>
+        <button class="look-arrow prev" type="button" id="lookPrev" aria-label="Previous view">‹</button>
+        <img id="lookMainImage" src="" alt="" draggable="false">
+        <button class="look-arrow next" type="button" id="lookNext" aria-label="Next view">›</button>
+      </div>
+      <div class="look-panel">
+        <div class="eyebrow" id="lookMeta">Collection</div>
+        <h3 id="lookTitle">Look</h3>
+        <p>Explore the same tailoring from three views: full look, half-body detail and the garment itself.</p>
+        <div class="look-thumbs" id="lookThumbs"></div>
+        <div class="look-caption" id="lookCaption">Full look</div>
+        <a class="btn dark" href="#book" id="modalBook" style="margin-top:22px">Book a fitting</a>
+      </div>
+    </div>
+  </div>
+
+  <footer><div class="shell"><div class="footer-grid"><div><div class="footer-brand">The Boss Tailor</div><p>Bespoke suits, shirts and separates cut to your measurements and fitted where you are — your hotel, office or home anywhere in Bangkok.</p></div><div><h4>What we make</h4><ul><li><a href="#collection" data-jump="men">Bespoke suits</a></li><li><a href="#collection" data-jump="all">Tailored shirts</a></li><li><a href="#collection" data-jump="women">Tailoring for women</a></li><li><a href="#collection" data-jump="all">Separates</a></li></ul></div><div><h4>How we work</h4><ul><li><a href="#process">How a fitting works</a></li><li><a href="#craft">Cloth & construction</a></li><li><a href="#process">Where we come to you</a></li></ul></div><div><h4>Contact</h4><ul><li>All Bangkok</li><li>Hotel · Office · Home</li><li><a href="tel:+66911051152">+66 911 051 152</a></li><li><a href="https://wa.me/66911051152" target="_blank" rel="noopener">WhatsApp</a></li><li>9:00 - 21:00 daily</li></ul></div></div><div class="footer-bottom"><span>© 2026 The Boss Tailor — Website concept</span><span>Bangkok bespoke tailoring · Since 2016</span></div></div></footer>
+  <a class="wa-float" href="https://wa.me/66911051152" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">WA</a>
+
+  <script>
+    const products = [
+      {img:'01',gender:'men',name:'Navy Suit',meta:'Men · Two-piece'}, {img:'02',gender:'men',name:'Light Grey Suit',meta:'Men · Single-breasted'}, {img:'03',gender:'men',name:'Silver Grey Suit',meta:'Men · Single-breasted'}, {img:'04',gender:'men',name:'Charcoal Suit',meta:'Men · Two-piece'}, {img:'05',gender:'men',name:'Black Suit',meta:'Men · Formal'}, {img:'06',gender:'women',name:'Navy Tailored Suit',meta:'Women · Single-breasted'}, {img:'07',gender:'women',name:'Camel Blazer',meta:'Women · Separates'}, {img:'08',gender:'women',name:'Charcoal Blazer',meta:'Women · Tailoring'}, {img:'09',gender:'women',name:'Camel Tailored Suit',meta:'Women · Single-breasted'}, {img:'10',gender:'women',name:'Cream Tailored Suit',meta:'Women · Warm-weather'}, {img:'11',gender:'men',name:'Brown Double-Breasted',meta:'Men · Double-breasted'}, {img:'12',gender:'men',name:'Grey Double-Breasted',meta:'Men · Double-breasted'}, {img:'13',gender:'men',name:'Navy Double-Breasted',meta:'Men · Double-breasted'}, {img:'14',gender:'men',name:'Cream Double-Breasted',meta:'Men · Warm-weather'}, {img:'15',gender:'men',name:'Black Double-Breasted',meta:'Men · Formal'}, {img:'16',gender:'men',name:'Black Three-Piece',meta:'Men · Waistcoat'}, {img:'17',gender:'men',name:'Blue Three-Piece',meta:'Men · Waistcoat'}, {img:'18',gender:'women',name:'Grey Plaid Blazer',meta:'Women · Double-breasted'}, {img:'19',gender:'women',name:'Grey Tailored Suit',meta:'Women · Double-breasted'}, {img:'20',gender:'women',name:'Olive Tailored Suit',meta:'Women · Double-breasted'}
+    ];
+    const labels = {men:"Men's tailoring", women:"Women's tailoring", all:"All looks"};
+    const grid = document.getElementById('productGrid'); const count = document.getElementById('count'); const label = document.getElementById('currentFilterLabel');
+    function render(filter='men'){
+      const items = products.filter(p=>filter==='all'||p.gender===filter);
+      label.textContent = labels[filter]; count.textContent = `${items.length} look${items.length===1?'':'s'}`;
+      grid.innerHTML = items.map(p=>`<article class="product reveal visible" tabindex="0" role="button" data-product="${p.img}" aria-label="View ${p.name}"><div class="product-image"><img loading="lazy" src="assets/gallery/${p.img}/full.png" alt="${p.name} full look"></div><div class="view-look">View 3 looks</div><div class="product-info"><small>${p.meta}</small><h3>${p.name}</h3></div></article>`).join('');
+      bindProductCards();
+      document.querySelectorAll('.switch-btn').forEach(b=>b.classList.toggle('active', b.dataset.filter===filter));
+    }
+
+    const modal=document.getElementById('lookModal');
+    const mainImg=document.getElementById('lookMainImage');
+    const modalTitle=document.getElementById('lookTitle');
+    const modalMeta=document.getElementById('lookMeta');
+    const thumbs=document.getElementById('lookThumbs');
+    const caption=document.getElementById('lookCaption');
+    const viewNames=['Full look','Half-body detail','Garment detail'];
+    const viewFiles=['full','half','garment'];
+    let modalProduct=null,modalIndex=0,touchStartX=null;
+    function updateModalView(index){
+      if(!modalProduct)return; modalIndex=(index+viewFiles.length)%viewFiles.length;
+      const file=viewFiles[modalIndex]; mainImg.src=`assets/gallery/${modalProduct.img}/${file}.png`; mainImg.alt=`${modalProduct.name} — ${viewNames[modalIndex]}`; caption.textContent=viewNames[modalIndex];
+      thumbs.querySelectorAll('.look-thumb').forEach((b,i)=>b.classList.toggle('active',i===modalIndex));
+    }
+    function openModal(product){
+      modalProduct=product; modalTitle.textContent=product.name; modalMeta.textContent=product.meta;
+      thumbs.innerHTML=viewFiles.map((f,i)=>`<button class="look-thumb${i===0?' active':''}" type="button" data-view="${i}" aria-label="${viewNames[i]}"><img src="assets/gallery/${product.img}/${f}.png" alt=""></button>`).join('');
+      thumbs.querySelectorAll('.look-thumb').forEach(b=>b.addEventListener('click',()=>updateModalView(Number(b.dataset.view))));
+      updateModalView(0); modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.classList.add('modal-open'); document.getElementById('lookClose').focus();
+    }
+    function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');}
+    function bindProductCards(){grid.querySelectorAll('.product').forEach(card=>{const p=products.find(x=>x.img===card.dataset.product);card.addEventListener('click',()=>openModal(p));card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openModal(p)}});});}
+    document.getElementById('lookClose').addEventListener('click',closeModal);
+    document.getElementById('lookPrev').addEventListener('click',()=>updateModalView(modalIndex-1));
+    document.getElementById('lookNext').addEventListener('click',()=>updateModalView(modalIndex+1));
+    document.getElementById('modalBook').addEventListener('click',closeModal);
+    modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
+    document.addEventListener('keydown',e=>{if(!modal.classList.contains('open'))return;if(e.key==='Escape')closeModal();if(e.key==='ArrowLeft')updateModalView(modalIndex-1);if(e.key==='ArrowRight')updateModalView(modalIndex+1)});
+    document.getElementById('lookStage').addEventListener('touchstart',e=>{touchStartX=e.changedTouches[0].clientX},{passive:true});
+    document.getElementById('lookStage').addEventListener('touchend',e=>{if(touchStartX===null)return;const dx=e.changedTouches[0].clientX-touchStartX;if(Math.abs(dx)>45)updateModalView(modalIndex+(dx<0?1:-1));touchStartX=null},{passive:true});
+
+    render('men');
+    document.querySelectorAll('.switch-btn').forEach(btn=>btn.addEventListener('click',()=>render(btn.dataset.filter)));
+    document.querySelectorAll('[data-jump]').forEach(a=>a.addEventListener('click',()=>setTimeout(()=>render(a.dataset.jump), 50)));
+    document.querySelectorAll('.mobile-menu a').forEach(a=>a.addEventListener('click',()=>document.querySelector('.mobile-menu').classList.remove('open')));
+    document.querySelectorAll('a[href="#book"]').forEach(a=>a.addEventListener('click',()=>{ document.body.classList.remove('modal-open'); const m=document.getElementById('lookModal'); if(m) m.classList.remove('open'); }));
+    document.getElementById('bookingForm').addEventListener('submit',e=>{e.preventDefault(); const v=id=>document.getElementById(id).value.trim(); const text = `Hello The Boss Tailor, I'd like to book a fitting.\n\nName: ${v('name')}\nPhone: ${v('phone')}\nWhere in Bangkok: ${v('where')}\nPreferred date: ${v('date')||'Flexible'}\nGarment: ${v('garment')}\nDeparture date: ${v('departure')||'Not applicable / flexible'}\nNotes: ${v('message')||'-'}`; window.open(`https://wa.me/66911051152?text=${encodeURIComponent(text)}`,'_blank');});
+    const io = new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.08}); document.querySelectorAll('.reveal:not(.visible)').forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>
